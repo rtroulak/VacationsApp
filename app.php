@@ -159,10 +159,7 @@ mysqli_close($conn);
                 <div class="group">
                     <input type="submit" class="button" value="SUBMIT">
                 </div>
-                
-                <!--<div class="foot-lnk">-->
-                    <!--<label for="tab-1">Already Member?</a>-->
-                <!--</div>-->
+
             </form>
         </div>
     </div>
@@ -256,9 +253,7 @@ mysqli_close($conn);
                     <input type="submit" class="button" value="CREATE">
                 </div>
                 
-                <!--<div class="foot-lnk">-->
-                    <!--<label for="tab-1">Already Member?</a>-->
-                <!--</div>-->
+
             </form>
         </div>
     </div>

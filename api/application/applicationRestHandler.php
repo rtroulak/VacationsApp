@@ -47,6 +47,9 @@ class applicationRestHandler extends SimpleRest
 
     }
 
+    /**
+     * Get Error messages
+     */
     function getErrorMsg(){
         $statusCode = 404;
         $rawData = array("hasError" => 'true', 'message' => 'Empty return response Data');
@@ -56,6 +59,9 @@ class applicationRestHandler extends SimpleRest
         echo $response;
     }
 
+    /**
+     * Get Error on Auth
+     */
     function getErrorMsgUnAuthorized(){
         $statusCode = 401;
         $rawData = array("hasError" => 'true', "message"=> 'Unauthorized');
@@ -64,6 +70,7 @@ class applicationRestHandler extends SimpleRest
         $response = $this->encodeJson($rawData);
         echo $response;
     }
+
     function accessDenied($server){
         $statusCode = 403;
         $rawData = array("hasError" => 'true', "message"=> 'Access Denied to IP:'.$server);

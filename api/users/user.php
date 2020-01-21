@@ -39,7 +39,10 @@ class user
     {
         
     }
-
+    /**
+     * Init parameters
+     * @param $object
+     */
     function init($object)
     {
 
@@ -67,10 +70,11 @@ class user
   
     }
 
-   
+
 
     /**
-     * @return array
+     * Init parameters
+     * @param $object
      */
     function getPostData(){
         $this->response = array("hasError"=>$this->hasError, "message"=>$this->message, "data" =>$this->result);
@@ -78,6 +82,7 @@ class user
     }
 
     /**
+     *  Update database on new application
      * @param $object
      * @return int
      */
