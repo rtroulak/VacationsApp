@@ -12,15 +12,17 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 mysqli_set_charset($conn, "utf8");
-$dateStart = defSqlInjection($_POST['dateStart']);
-$dateEnd = defSqlInjection($_POST['dateEnd']);
-$reason = defSqlInjection($_POST['reason']);
-$employeeId= defSqlInjection($_POST['employeeId']);
+$firstName = defSqlInjection($_POST['firstName']);
+$lastName = defSqlInjection($_POST['lastName']);
+$email = defSqlInjection($_POST['email']);
+$password= defSqlInjection($_POST['password']);
+$type= defSqlInjection($_POST['type']);
+
 
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://vacations-app.tk/api/application/",
+  CURLOPT_URL => "https://vacations-app.tk/api/users/",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -28,11 +30,11 @@ curl_setopt_array($curl, array(
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS =>"{\n\t\"dateStart\" : \"$dateStart\",\n\t\"dateEnd\" : \"$dateEnd\",\n\t\"reason\" : \"$reason\",\n\t\"employeeId\": \"$employeeId\"\n}",
+  CURLOPT_POSTFIELDS =>"{\n\t\"firstName\" : \"$firstName\",\n\t\"lastName\" : \"$lastName\",\n\t\"email\" : \"$email\",\n\t\"password\": \"$password\",\n\t\"type\": \"$type\"\n}",
   CURLOPT_HTTPHEADER => array(
     "Content-Type: application/json",
     "Authorization: Basic YXBpdXNlcjpwYXNzd29yZA=="
-  ),    
+  ),
 ));
 
 $response = curl_exec($curl);
@@ -47,7 +49,7 @@ curl_close($curl);
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>Vacations App</title>
-<meta charset=utf-8" />
+<meta charset="utf-8" />
 
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
     <link rel="stylesheet" href="../../assets/css/style.css">

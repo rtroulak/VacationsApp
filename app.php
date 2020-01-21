@@ -1,8 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: r.troulakis
+ * User: raf
  * Date: 19/01/2020
+ * Time: 1:42 μμ
  */
 session_start();
 header('Content-Type: text/html; charset=utf-8');
@@ -42,6 +43,7 @@ if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
         $rowpass =  $row["password"];
         $rowusername = $row["username"];
+        $admin = $row['admin'];
     }
     if($rowpass == $password && $rowusername == $username && 1){
         setcookie('username', $username, time() + (86400 * 30), "/"); // 86400 = 1 day
@@ -72,31 +74,7 @@ mysqli_close($conn);
 
 
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
-    <link rel="stylesheet" href="./assets/css/style.css">
-    
-    <script type="text/javascript">
-    
-
-        function validate(evt) {
-              var theEvent = evt || window.event;
-
-              // Handle paste
-              if (theEvent.type === 'paste') {
-                  key = event.clipboardData.getData('text/plain');
-              } else {
-              // Handle key press
-                  var key = theEvent.keyCode || theEvent.which;
-                  key = String.fromCharCode(key);
-              }
-              var regex = /[0-9\b]|\./;
-              if( !regex.test(key) ) {
-                theEvent.returnValue = false;
-                if(theEvent.preventDefault) theEvent.preventDefault();
-              }
-        }
-
-    
-    </script>
+    <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 <body>
@@ -104,13 +82,13 @@ mysqli_close($conn);
     <div class="login-html">
         <img style="display: block;margin: 0 auto;" src="assets/images/whitelogo.gif">
         <h1 style="color:white" align="center">Vacations App</h1>
-               <h3 style="color:white" align="center">LoggedIn as <?php echo $username; ?></h3>
+               <h3 style="color:white" align="center">LoggedIn as <?php echo $username; if(!$admin){?></h3>
         <br>
         <br>
-        <input id="tab-1" type="radio" name="tab" class="application-in" checked><label for="tab-1" class="tab">ΛΙΣΤΑ ΑΙΤΗΣΕΩΝ</label>
-        <input id="tab-2" type="radio" name="tab" class="application-up"><label for="tab-2" class="tab">ΑΙΤΗΣΗ ΑΔΕΙΑΣ</label>
+        <input id="tab-1" type="radio" name="tab" class="application-in" checked><label for="tab-1" class="tab">LIST OF APPLICATIONS</label>
+        <input id="tab-2" type="radio" name="tab" class="application-up"><label for="tab-2" class="tab">NEW APPLICATION</label>
         <div class="login-form">
-            <form class="application-in-htm" action="./api/User/search.php" method="POST">
+            <form class="application-in-htm" action="" method="POST">
                 <?php
 
                     require_once "db_vars.php";
@@ -131,12 +109,12 @@ mysqli_close($conn);
                     $result = mysqli_query($conn, $sql);
                     if (mysqli_num_rows($result) > 0) {
                         // output data of each row
-                        echo "<table  style='width:100%' border='0'>";
+                        echo "<table  style='width:100%'>";
                         echo "<th>Application ID</th><th>Date Start</th><th>Date End</th><th>Reason</th><th>employees</th><th>status</th>";
                         while($row = mysqli_fetch_assoc($result)) {
                             $employeeId = $row['employeeId'];
                            echo "<tr>";
-                            echo "<td style='color:lightgray'>". $row["applicationId"]. "</td><td style='color:lightgray'>". date("d/m/Y",$row["dateStart"]). "</td><td style='color:lightgray'>". date("d/m/Y",$row["dateEnd"]). "</td><td style='color:lightgray'>". $row["reason"]. "</td><td style='color:lightgray'>".$row["lastName"]."</td><td style='color:lightgray'>". status($row["status"]). "</td>";
+                            echo "<td id='content'>". $row["applicationId"]. "</td><td id='content'>". date("d/m/Y",$row["dateStart"]). "</td><td id='content'>". date("d/m/Y",$row["dateEnd"]). "</td><td id='content'>". $row["reason"]. "</td><td id='content''>".$row["lastName"]."</td><td id='content'>". status($row["status"]). "</td>";
                             echo "</tr>";
                         }
                         
@@ -146,21 +124,27 @@ mysqli_close($conn);
                     }
 
                 ?>
+                <div style="text-align:center;">
+                    <br>
+                    <br>
+                     <input id="tab-3" type="button" name="tab1" class="application-up" ><label for="tab-2" class="tab">NEW APPLICATION</label>
+                </div>
             </form>
+
 
            
 
-            <form class="application-up-htm" action="./api/Application/newApplication.php" method="POST">
+            <form class="application-up-htm" action="api/Application/newApplication.php" method="POST">
 
 
                 <!-- USER -->
                 <div class="group">
                     <label for="user" class="label" >VACATION FROM</label>
-                    <input id="dateStart" name="dateStart" type="date" class="input" placeholder="" onkeyup="this.value = this.value.toUpperCase();">
+                    <input id="dateStart" name="dateStart" type="date" class="input" placeholder="" onkeyup="this.value = this.value.toUpperCase();" required>
                 </div>
                 <div class="group">
                     <label for="user" class="label" >VACATION TO</label>
-                    <input id="dateEnd" name="dateEnd" type="date" class="input" placeholder="" onkeyup="this.value = this.value.toUpperCase();">
+                    <input id="dateEnd" name="dateEnd" type="date" class="input" placeholder="" onkeyup="this.value = this.value.toUpperCase();" required>
                 </div>
                 <div class="group">
                     <label for="user" class="label">REASON</label>
@@ -174,6 +158,102 @@ mysqli_close($conn);
 
                 <div class="group">
                     <input type="submit" class="button" value="SUBMIT">
+                </div>
+                
+                <!--<div class="foot-lnk">-->
+                    <!--<label for="tab-1">Already Member?</a>-->
+                <!--</div>-->
+            </form>
+        </div>
+    </div>
+</div>
+<?php
+}
+?>
+</h3>
+        <br>
+        <br>
+        <input id="tab-1" type="radio" name="tab" class="application-in" checked><label for="tab-1" class="tab">LIST OF USERS</label>
+        <input id="tab-2" type="radio" name="tab" class="application-up"><label for="tab-2" class="tab">NEW USER</label>
+        <div class="login-form">
+            <form class="application-in-htm" action="" method="POST">
+                <?php
+
+                    require_once "db_vars.php";
+                    require_once "functions.php";
+                        // Create connection
+                    $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+                    // Check connection
+                    if (!$conn) {
+                        die("Connection failed: " . mysqli_connect_error());
+                    }
+
+                    mysqli_set_charset($conn, "utf8");
+
+
+
+                    $sql = "SELECT * FROM `users` INNER JOIN employees on employees.userid = users.id ";
+
+                    $result = mysqli_query($conn, $sql);
+                    if (mysqli_num_rows($result) > 0) {
+                        // output data of each row
+                        echo "<table  style='width:100%'>";
+                        echo "<th>User first name</th><th>User last name</th><th>User email</th><th>User type</th>";
+                        while($row = mysqli_fetch_assoc($result)) {
+                            $employeeId = $row['employeeId'];
+                           echo "<tr>";
+                            echo "<td id='content'>". $row["firstName"]. "</td><td id='content'>". $row["lastName"]. "</td><td id='content'>". $row["email"]. "</td><td id='content'>". type($row["admin"]). "</td>";
+                            echo "</tr>";
+                        }
+                        
+                        echo "</table>";
+                    } else {
+                        echo "0 results";
+                    }
+
+                ?>
+                <div style="text-align:center;">
+                    <br>
+                    <br>
+                     <input id="tab-3" type="button" name="tab1" class="application-up" ><label for="tab-2" class="tab">NEW USER</label>
+                </div>
+            </form>
+
+
+           
+
+            <form class="application-up-htm" action="api/Application/newUser.php" method="POST">
+
+
+                <!-- USER -->
+                <div class="group">
+                    <label for="user" class="label">FIRST NAME</label>
+                    <input id="firstName" name="firstName" type="text" class="input" placeholder="e.g. I will travel to Amsterdam for vacations!:)">
+                </div>
+                <div class="group">
+                    <label for="user" class="label">LAST NAME</label>
+                    <input id="lastName" name="lastName" type="text" class="input" placeholder="e.g. I will travel to Amsterdam for vacations!:)">
+                </div>
+                <div class="group">
+                    <label for="user" class="label">EMAIL</label>
+                    <input id="email" name="email" type="text" class="input" placeholder="e.g. I will travel to Amsterdam for vacations!:)">
+                </div>
+                <div class="group">
+                    <label for="user" class="label">PASSWORD</label>
+                    <input id="password" name="password" type="text" class="input" placeholder="e.g. I will travel to Amsterdam for vacations!:)">
+                </div>
+
+                 <div class="group">
+                    <label for="user" class="label">USERTYPE</label>
+                    <select name="type">
+                      <option value="0" selected>Employee</option>
+                      <option value="1">Admin</option>
+                </select> 
+                </div>
+               
+
+                <div class="group">
+                    <input type="submit" class="button" value="CREATE">
                 </div>
                 
                 <!--<div class="foot-lnk">-->

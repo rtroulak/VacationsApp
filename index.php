@@ -1,8 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: r.troulakis
+ * User: raf
  * Date: 19/01/2020
+ * Time: 1:42 μμ
  */
 header('Content-Type: text/html; charset=utf-8');
 
@@ -25,7 +26,7 @@ session_start();
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 <body>

@@ -1,10 +1,10 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: r.troulakis
+ * User: raf
  * Date: 19/01/2020
+ * Time: 1:42 μμ
  */
-
 header('Content-Type: text/html; charset=utf-8');
 /**
  * @param $data
@@ -152,6 +152,13 @@ function status($status){
     if($status == 0 ) return 'Rejected';
     if($status == 1 ) return 'Pending';
     if($status == 2 ) return 'Approved';
+
+    return 'NoStatus';
+}
+
+function type($type){
+    if($type == 0 ) return 'Employee';
+    if($type == 1 ) return 'Admin';
 
     return 'NoStatus';
 }

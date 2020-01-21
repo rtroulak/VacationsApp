@@ -1,11 +1,12 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: r.troulakis
- * Date: 19/01/2020
+ * User: raf
+ * Date: 20/01/2020
+ * Time: 4:42 μμ
  */
 
-$db_host = "xxxxxx";
-$db_user = "xxxxxx"; //database username
-$db_pass = "xxxxxx"; //database password
-$db_name = "xxxxxx"; //database name
+$db_host = "xxxxxxxxxx";
+$db_user = "xxxxxxxxxx"; //database username
+$db_pass = "xxxxxxxxxx"; //database password
+$db_name = "xxxxxxxxxx"; //database name

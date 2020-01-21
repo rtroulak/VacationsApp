@@ -12,12 +12,11 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 mysqli_set_charset($conn, "utf8");
-$dateStart = defSqlInjection($_POST['dateStart']);
-$dateEnd = defSqlInjection($_POST['dateEnd']);
-$reason = defSqlInjection($_POST['reason']);
-$employeeId= defSqlInjection($_POST['employeeId']);
 
+$applicationId = $_GET['applicationId'] ;
+$status = $_GET['approve'] ;
 $curl = curl_init();
+
 
 curl_setopt_array($curl, array(
   CURLOPT_URL => "https://vacations-app.tk/api/application/",
@@ -27,13 +26,14 @@ curl_setopt_array($curl, array(
   CURLOPT_TIMEOUT => 0,
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS =>"{\n\t\"dateStart\" : \"$dateStart\",\n\t\"dateEnd\" : \"$dateEnd\",\n\t\"reason\" : \"$reason\",\n\t\"employeeId\": \"$employeeId\"\n}",
+  CURLOPT_CUSTOMREQUEST => "PUT",
+  CURLOPT_POSTFIELDS =>"{\n\t\"applicationId\" : \"$applicationId\",\n\t\"approve\":\"$status\"\n}",
   CURLOPT_HTTPHEADER => array(
     "Content-Type: application/json",
     "Authorization: Basic YXBpdXNlcjpwYXNzd29yZA=="
-  ),    
+  ),
 ));
+
 
 $response = curl_exec($curl);
 $array = json_decode($response);
@@ -43,6 +43,10 @@ curl_close($curl);
 ?>
 
 <!DOCTYPE html>
+<!--App: atosystem-->
+<!--Company: atoinsurance-->
+<!--Dev: rtroulak-->
+<!--Date: 4/1/2019-->
 <html lang="en" >
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
