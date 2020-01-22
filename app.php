@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: raf
- * Date: 19/01/2020
- * Time: 1:42 μμ
- */
 session_start();
 header('Content-Type: text/html; charset=utf-8');
 require_once "db_vars.php";
@@ -17,7 +11,7 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 mysqli_set_charset($conn, "utf8");
-
+//init cookie
 if($_POST['username']){
     unset($_COOKIE['username']);
     unset($_COOKIE['password']);
@@ -35,6 +29,7 @@ else{
      $password = $_COOKIE['password'];
 }
 
+// check for valid credentials
 $sql = "SELECT * FROM `users` WHERE username = '".$username."'";
 
 $result = mysqli_query($conn, $sql);
@@ -59,6 +54,7 @@ if (mysqli_num_rows($result) > 0) {
     header("Location:index.php");
     
 }
+
 
 mysqli_close($conn);
 
@@ -103,6 +99,7 @@ mysqli_close($conn);
                     mysqli_set_charset($conn, "utf8");
 
 
+                    // get and print the list of user's application
 
                     $sql = "SELECT * FROM `applications` INNER JOIN employees on employees.employeeId = applications.employeeId INNER JOIN users on users.id = employees.userid WHERE username = '".$username."'";
 
@@ -133,11 +130,10 @@ mysqli_close($conn);
 
 
            
-
+            <!-- Application form -->
             <form class="application-up-htm" action="api/Application/newApplication.php" method="POST">
 
 
-                <!-- USER -->
                 <div class="group">
                     <label for="user" class="label" >VACATION FROM</label>
                     <input id="dateStart" name="dateStart" type="date" class="input" placeholder="" onkeyup="this.value = this.value.toUpperCase();" required>
@@ -159,7 +155,7 @@ mysqli_close($conn);
                 <div class="group">
                     <input type="submit" class="button" value="SUBMIT">
                 </div>
-
+                
             </form>
         </div>
     </div>
@@ -178,7 +174,7 @@ mysqli_close($conn);
 
                     require_once "db_vars.php";
                     require_once "functions.php";
-                        // Create connection
+                    // Create connection
                     $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
                     // Check connection
                     if (!$conn) {
@@ -187,7 +183,7 @@ mysqli_close($conn);
 
                     mysqli_set_charset($conn, "utf8");
 
-
+                    // get and print the list of users
 
                     $sql = "SELECT * FROM `users` INNER JOIN employees on employees.userid = users.id ";
 
@@ -198,8 +194,8 @@ mysqli_close($conn);
                         echo "<th>User first name</th><th>User last name</th><th>User email</th><th>User type</th>";
                         while($row = mysqli_fetch_assoc($result)) {
                             $employeeId = $row['employeeId'];
-                           echo "<tr>";
-                            echo "<td id='content'>". $row["firstName"]. "</td><td id='content'>". $row["lastName"]. "</td><td id='content'>". $row["email"]. "</td><td id='content'>". type($row["admin"]). "</td>";
+                           echo "<tr> ";
+                            echo "<td id='content'><a href='api/Application/showUser.php?employeeId=".$row['employeeId']."'>". $row["firstName"]. "</a></td><td id='content'>". $row["lastName"]. "</td><td id='content'>". $row["email"]. "</td><td id='content'>". type($row["admin"]). "</td>";
                             echo "</tr>";
                         }
                         
@@ -225,19 +221,19 @@ mysqli_close($conn);
                 <!-- USER -->
                 <div class="group">
                     <label for="user" class="label">FIRST NAME</label>
-                    <input id="firstName" name="firstName" type="text" class="input" placeholder="e.g. I will travel to Amsterdam for vacations!:)">
+                    <input id="firstName" name="firstName" type="text" class="input" placeholder="e.g. Georgios Rafail">
                 </div>
                 <div class="group">
                     <label for="user" class="label">LAST NAME</label>
-                    <input id="lastName" name="lastName" type="text" class="input" placeholder="e.g. I will travel to Amsterdam for vacations!:)">
+                    <input id="lastName" name="lastName" type="text" class="input" placeholder="e.g. Troulakis">
                 </div>
                 <div class="group">
                     <label for="user" class="label">EMAIL</label>
-                    <input id="email" name="email" type="text" class="input" placeholder="e.g. I will travel to Amsterdam for vacations!:)">
+                    <input id="email" name="email" type="text" class="input" placeholder="e.g. rtroulak@protonmail.com">
                 </div>
                 <div class="group">
                     <label for="user" class="label">PASSWORD</label>
-                    <input id="password" name="password" type="text" class="input" placeholder="e.g. I will travel to Amsterdam for vacations!:)">
+                    <input id="password" name="password" type="text" class="input" placeholder="e.g. XXXXXXXXXXXXX">
                 </div>
 
                  <div class="group">
@@ -253,7 +249,9 @@ mysqli_close($conn);
                     <input type="submit" class="button" value="CREATE">
                 </div>
                 
-
+                <!--<div class="foot-lnk">-->
+                    <!--<label for="tab-1">Already Member?</a>-->
+                <!--</div>-->
             </form>
         </div>
     </div>

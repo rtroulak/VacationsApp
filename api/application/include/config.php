@@ -10,9 +10,9 @@
 /**
  * psa DB Username/Pass
  */
-define('USER_MB', 'xxxxxxxxxx');
-define('PASS_MB', 'xxxxxx');
-define("SITE_IP","xxxxxxxxx");
-define("SITE_IPv6","xxxxxxxxxxxxx");
-define("SITE_IPv6a","xxxxxxxxxxxxxxxx");
-define("VAGRANT_IP","xxxxxxxxxxx");
+define('USER_MB', 'xxxxxx');
+define('PASS_MB', 'xxxx');
+define("SITE_IP","xxxxx");
+define("SITE_IPv6","xxxxxxx");
+define("SITE_IPv6a","xxxxxxxxxx");
+define("VAGRANT_IP","xxxxxx");

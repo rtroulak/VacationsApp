@@ -48,10 +48,6 @@ class application
         
     }
 
-    /**
-     * Init parameters
-     * @param $object
-     */
     function init($object)
     {
         require_once "../../db_vars.php";
@@ -81,10 +77,6 @@ class application
   
     }
 
-    /**
-     * Update Database on approval
-     * @return int|string
-     */
     function putApprove(){
         mysqli_set_charset($this->conn, "utf8");
         $applicationId=  $this->applicationId;
@@ -110,8 +102,7 @@ class application
     }
 
     /**
-     * Init parameters
-     * @param $object
+     * @return array
      */
     function getPostData(){
         $this->response = array("hasError"=>$this->hasError, "message"=>$this->message, "data" =>$this->result);
@@ -119,7 +110,6 @@ class application
     }
 
     /**
-     *  Update database on new application
      * @param $object
      * @return int
      */
@@ -155,10 +145,6 @@ class application
     }
 
 
-    /**
-     * Send email to admin for approval
-     * @throws Exception
-     */
     function sendEmail(){
      
         require_once "../../vendor/autoload.php";
@@ -182,10 +168,6 @@ class application
        
     }
 
-    /**
-     * Send notification email to user for status update
-     * @throws Exception
-     */
     function sendEmailUser(){
      
         require_once "../../vendor/autoload.php";
@@ -213,10 +195,6 @@ class application
        
     }
 
-    /**
-     * Get email of user's application
-     * @return mixed|string
-     */
     function getEmailApplication(){
         
         $sql = "SELECT * FROM `applications` INNER JOIN employees on applications.employeeId = employees.employeeId WHERE applicationId = '".$this->applicationId."'";
@@ -231,10 +209,6 @@ class application
         }
     }
 
-    /**
-     * Get User email
-     * @return mixed|string
-     */
     function getEmail(){
         
         $sql = "SELECT * FROM `employees` WHERE employeeId = '".$this->employeeId."'";
@@ -249,10 +223,6 @@ class application
         }
     }
 
-    /**
-     * Get admin email
-     * @return mixed|string
-     */
     function getAdminEmail(){
         
         $sql = "SELECT * FROM `users` INNER JOIN employees on users.id = employees.userId WHERE admin = 1";

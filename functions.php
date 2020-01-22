@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: raf
- * Date: 19/01/2020
- * Time: 1:42 μμ
- */
 header('Content-Type: text/html; charset=utf-8');
 /**
  * @param $data

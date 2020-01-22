@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: raf
- * Date: 19/01/2020
- * Time: 1:42 μμ
- */
 header('Content-Type: text/html; charset=utf-8');
 
 echo $_COOKIE[$cookie_username]." - ".$_COOKIE[$cookie_password];
@@ -47,8 +41,6 @@ session_start();
                     <input id="password" name="password" type="password" class="input" data-type="password">
                 </div>
                 <div class="group">
-                    <input id="check" type="checkbox" class="check" checked>
-                    <label for="check"><span class="icon"></span> Keep me Signed in</label>
                 </div>
                 <div class="group">
                     <input type="submit" class="button" value="Log In">
