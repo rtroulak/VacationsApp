@@ -161,7 +161,7 @@ mysqli_close($conn);
     </div>
 </div>
 <?php
-}
+}else{
 ?>
 </h3>
         <br>
@@ -256,7 +256,7 @@ mysqli_close($conn);
         </div>
     </div>
 </div>
-
+<?php } ?>
 
 </body>
 </html>
