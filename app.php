@@ -30,7 +30,7 @@ else{
 }
 
 // check for valid credentials
-$sql = "SELECT * FROM `users` WHERE username = '".$username."'";
+$sql = "SELECT * FROM `users` INNER JOIN employees on users.id = employees.userId WHERE username = '".$username."'";
 
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
@@ -39,6 +39,7 @@ if (mysqli_num_rows($result) > 0) {
         $rowpass =  $row["password"];
         $rowusername = $row["username"];
         $admin = $row['admin'];
+        $employeeId = $row['employeeId'];
     }
     if($rowpass == $password && $rowusername == $username && 1){
         setcookie('username', $username, time() + (86400 * 30), "/"); // 86400 = 1 day
@@ -109,7 +110,6 @@ mysqli_close($conn);
                         echo "<table  style='width:100%'>";
                         echo "<th>Application ID</th><th>Date Start</th><th>Date End</th><th>Reason</th><th>employees</th><th>status</th>";
                         while($row = mysqli_fetch_assoc($result)) {
-                            $employeeId = $row['employeeId'];
                            echo "<tr>";
                             echo "<td id='content'>". $row["applicationId"]. "</td><td id='content'>". date("d/m/Y",$row["dateStart"]). "</td><td id='content'>". date("d/m/Y",$row["dateEnd"]). "</td><td id='content'>". $row["reason"]. "</td><td id='content''>".$row["lastName"]."</td><td id='content'>". status($row["status"]). "</td>";
                             echo "</tr>";
@@ -117,7 +117,7 @@ mysqli_close($conn);
                         
                         echo "</table>";
                     } else {
-                        echo "0 results";
+                        echo "No Applications yet";
                     }
 
                 ?>
@@ -257,6 +257,7 @@ mysqli_close($conn);
     </div>
 </div>
 <?php } ?>
+
 
 </body>
 </html>
